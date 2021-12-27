@@ -1,0 +1,50 @@
+\documentclass[suri,hyperref]{engsuribt} % Select from {mi, suri, ipc, system}
+
+\usepackage{amsmath}
+\usepackage{lipsum} % Remove this!
+
+% PDF hyperlinks
+\usepackage[bookmarksnumbered,hypertexnames=false,pdfdisplaydoctitle,pdfusetitle,unicode]{hyperref}
+
+% References
+\usepackage[backref=true,sorting=nyt,style=trad-abbrv]{biblatex}
+\addbibresource{sample.bib}
+
+\title{My Life as a Master's Student}
+\jtitle{修士課程学生としての私の人生}
+\author{Author Name}
+\jauthor{著者 名}
+\studentid{12-345678}
+\supervisor{Professor Super Visor}
+\handin{2022}{2}
+
+\begin{document}
+\maketitle
+
+\frontmatter
+\begin{abstract}
+  \lipsum[1-2]
+\end{abstract}
+
+\tableofcontents
+
+\mainmatter
+\chapter{Introduction}
+\lipsum[1]
+
+\chapter{Chapter Name}
+\lipsum[1]
+
+\section{Section Name}
+The following might be used in~\cite{Adams1995}:
+\begin{align}
+  f(X) + f(Y) \ge f(X \cap Y) + f(X \cup Y).
+\end{align}
+
+\backmatter
+\chapter{Acknowledgments}
+\lipsum[1]
+
+\printbibliography[heading=bibintoc]
+
+\end{document}
