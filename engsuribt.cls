@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{engsuribt}[2021/12/27 Taihei OKI]
+\ProvidesClass{engsuribt}[2021/12/27 v1.1 by Taihei OKI]
 
 \RequirePackage{CJKutf8}
 \newcommand*{\@ja}[1]{\begin{CJK}{UTF8}{ipxm}#1\end{CJK}}
@@ -24,14 +24,29 @@
 \DeclareOption{system}{\@belongstosurifalse\@undergraduatefalse}
 \ExecuteOptions{suri}
 
-\newif\if@hyperref
-\@hyperreffalse
-\DeclareOption{hyperref}{\@hyperreftrue}
+\newif\if@pdfbookmark
+\@pdfbookmarkfalse
+\DeclareOption{pdfbookmark}{\@pdfbookmarktrue}
+\newcommand{\@pdfbookmark}[2]{%
+  \if@pdfbookmark%
+    \ifdefined\pdfbookmark%
+      \pdfbookmark{#1}{#2}%
+    \fi%
+  \fi%
+}
+
+\newif\if@dvipdfmx
+\@dvipdfmxfalse
+\DeclareOption{dvipdfmx}{\@dvipdfmxtrue}
 
 \ProcessOptions
 
 % Load the parent document class
-\LoadClass[11pt,a4paper]{book}
+\LoadClass[
+  11pt,
+  a4paper,
+  \if@dvipdfmx dvipdfmx,\fi
+]{book}
 
 % Margin
 \setlength{\textheight}{210mm}
@@ -131,9 +146,8 @@
 \fi
 
 \renewcommand{\maketitle}{%
-  \if@hyperref
-    \pdfbookmark{Cover Page}{cover-page}
-  \fi
+  \@pdfbookmark{Cover Page}{cover-page}
+  \pagenumbering{Alph} % https://tex.stackexchange.com/a/18927
   \begin{titlepage}%
     \null\vskip60\p@
     \begin{center}
@@ -170,9 +184,7 @@
 }
 
 \newenvironment{abstract}{%
-  \if@hyperref
-    \pdfbookmark{Abstract}{abstract}
-  \fi
+  \@pdfbookmark{Abstract}{abstract}
   \titlepage
   \null\vfill
   \@beginparpenalty\@lowpenalty
@@ -187,9 +199,11 @@
 }
 
 % Insert PDF bookmarks
-\if@hyperref
+\if@pdfbookmark%
   \pretocmd{\tableofcontents}{%
-    \cleardoublepage
-    \pdfbookmark{\contentsname}{toc}
+    \ifdefined\pdfbookmark%
+      \cleardoublepage%
+      \pdfbookmark{\contentsname}{toc}%
+    \fi%
   }{}{}%
 \fi

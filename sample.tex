@@ -1,14 +1,19 @@
-\documentclass[suri,hyperref]{engsuribt} % Select from {mi, suri, ipc, system}
+\documentclass[suri,pdfbookmark]{engsuribt} % Select from {mi, suri, ipc, system}
 
-\usepackage{amsmath}
-\usepackage{lipsum} % Remove this!
+% Bibliography
+\usepackage[
+  backref,          % Enable back references
+  sorting=nyt,      % Sort by name, year, title
+  style=trad-abbrv  % Use trad-abbrv style
+]{biblatex}
+\addbibresource{sample.bib}  % Change to your .bib file
 
-% PDF hyperlinks
-\usepackage[bookmarksnumbered,hypertexnames=false,pdfdisplaydoctitle,pdfusetitle,unicode]{hyperref}
-
-% References
-\usepackage[backref=true,sorting=nyt,style=trad-abbrv]{biblatex}
-\addbibresource{sample.bib}
+% PDF hyperlinks and bookmarks
+\usepackage[
+  bookmarksnumbered,   % Add chapter and section numbers to bookmarks
+  pdfdisplaydoctitle,  % Show the document title in the title bar
+  pdfusetitle,         % Reflect \title and \author to PDF file's meta data
+]{hyperref}
 
 \title{My Life as a Master's Student}
 \jtitle{修士課程学生としての私の人生}
@@ -23,28 +28,29 @@
 
 \frontmatter
 \begin{abstract}
-  \lipsum[1-2]
+  Write abstract here.
 \end{abstract}
 
 \tableofcontents
 
-\mainmatter
+\mainmatter  % Write contents in the following
 \chapter{Introduction}
-\lipsum[1]
-
-\chapter{Chapter Name}
-\lipsum[1]
+A citation can be written as~\cite{Adams1995}.
 
 \section{Section Name}
-The following might be used in~\cite{Adams1995}:
-\begin{align}
-  f(X) + f(Y) \ge f(X \cap Y) + f(X \cup Y).
-\end{align}
+You can use section.
+
+\subsection{Subsection Name}
+And subsection.
 
 \backmatter
 \chapter{Acknowledgments}
-\lipsum[1]
+Write acknowledgments here.
 
 \printbibliography[heading=bibintoc]
+
+\appendix
+\chapter{Missing Proofs}
+There are many missing proofs.
 
 \end{document}
